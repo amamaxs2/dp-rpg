@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
-export type BookDocument = HydratedDocument<Book>;
+export type PersonagemDocument = HydratedDocument<Personagem>;
 
 @Schema()
-export class Book {
+export class Personagem {
   @Prop()
   name: string;
 
@@ -15,7 +15,7 @@ export class Book {
   spells: [];
 
   @Prop()
-  items: string;
+  equipment: string;
   
   @Prop()
   feats: {name: String, prerequisites: []};
@@ -26,7 +26,6 @@ export class Book {
   @Prop()
   abilities: [];
 
-
 }
 
-export const BookSchema = SchemaFactory.createForClass(Book);
+export const PersonagemSchema = SchemaFactory.createForClass(Personagem);
