@@ -1,12 +1,12 @@
 import { Controller, Get, Post, Body, Param, Delete, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
-import { BooksService } from './books.service';
+import { PersonagemService } from './personagem.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 //import { UpdateBookDto } from './dto/update-book.dto';
 
-@Controller('books')
-export class BooksController {
-  constructor(private readonly booksService: BooksService) {}
+@Controller('personagem')
+export class PersonagemController {
+  constructor(private readonly booksService: PersonagemService) {}
 
   @UseGuards(AuthGuard)
   @Post()
