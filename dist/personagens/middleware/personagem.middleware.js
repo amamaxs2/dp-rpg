@@ -19,16 +19,19 @@ let PersonagemMiddleware = class PersonagemMiddleware {
         this.apiUrl = 'https://www.dnd5eapi.co/api';
     }
     async use(req, res, next) {
-        const { classes, spells, equipment, alignment } = req.body;
+        const { level, classes, spells, equipment, alignment, feats } = req.body;
         try {
-            await this.validateResource(`${this.apiUrl}/classes/${classes.name}`, 'Class');
+            await this.validateResource(`${this.apiUrl}/classes/${classes.name.toLowerCase()}`, 'Class');
             for (const spell of spells) {
-                await this.validateResource(`${this.apiUrl}/spells/${spell.index}`, 'Spell');
+                await this.validateSpell(spell, level);
             }
             for (const item of equipment) {
-                await this.validateResource(`${this.apiUrl}/equipment/${item.index}`, 'Equipment');
+                await this.validateResource(`${this.apiUrl}/equipment/${item.url.split("/")[3].toLowerCase()}`, 'Equipment');
             }
             await this.validateResource(`${this.apiUrl}/alignments/${alignment.name.toLowerCase()}`, 'Alignment');
+            for (const feat of feats) {
+                await this.validateFeat(feat);
+            }
             next();
         }
         catch (error) {
@@ -44,6 +47,36 @@ let PersonagemMiddleware = class PersonagemMiddleware {
         }
         catch (error) {
             throw new Error(`${resourceName} not found.`);
+        }
+    }
+    async validateSpell(spell, level) {
+        try {
+            const url = `${this.apiUrl}/spells/${spell.index}`;
+            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.get(url));
+            if (!response.data) {
+                throw new Error(`Spell ${spell.name} not found.`);
+            }
+            const spellData = response.data;
+            if (spellData.level > level) {
+                throw new Error(`Spell ${spell.name} requires a higher level.`);
+            }
+        }
+        catch (error) {
+            throw new Error(`Spell ${spell.name} validation failed: ${error.message}`);
+        }
+    }
+    async validateFeat(feat) {
+        try {
+            const url = `${this.apiUrl}/feats/${feat.name.toLowerCase()}`;
+            console.log(url);
+            const response = await (0, rxjs_1.firstValueFrom)(this.httpService.get(url));
+            if (!response.data) {
+                throw new Error(`Feat ${feat.name} not found.`);
+            }
+            const featData = response.data;
+        }
+        catch (error) {
+            throw new Error(`Feat ${feat.name} validation failed: ${error.message}`);
         }
     }
 };

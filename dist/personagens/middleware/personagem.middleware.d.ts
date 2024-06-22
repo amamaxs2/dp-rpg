@@ -7,4 +7,6 @@ export declare class PersonagemMiddleware implements NestMiddleware {
     constructor(httpService: HttpService);
     use(req: Request, res: Response, next: NextFunction): Promise<void>;
     private validateResource;
+    private validateSpell;
+    private validateFeat;
 }
