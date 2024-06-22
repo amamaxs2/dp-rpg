@@ -23,10 +23,8 @@ export class PersonagemMiddleware implements NestMiddleware {
         await this.validateResource(`${this.apiUrl}/equipment/${item.url.split("/")[3].toLowerCase()}`, 'Equipment');
       }
 
-      // Validate alignment
       await this.validateResource(`${this.apiUrl}/alignments/${alignment.name.toLowerCase()}`, 'Alignment');
 
-      // Validate feats
       for (const feat of feats) {
         await this.validateFeat(feat);
       }
