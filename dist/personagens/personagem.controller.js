@@ -16,7 +16,8 @@ exports.PersonagemController = void 0;
 const common_1 = require("@nestjs/common");
 const personagem_service_1 = require("./personagem.service");
 const create_personagem_dto_1 = require("./dto/create-personagem.dto");
-const auth_guard_1 = require("../auth/auth.guard");
+const update_personagem_dto_1 = require("./dto/update-personagem.dto");
+const createFailed_exception_1 = require("./exceptions/createFailed.exception");
 let PersonagemController = class PersonagemController {
     constructor(personagensService) {
         this.personagensService = personagensService;
@@ -26,8 +27,7 @@ let PersonagemController = class PersonagemController {
             return await this.personagensService.create(createPersonagemDto);
         }
         catch (error) {
-            console.log(error);
-            throw new common_1.HttpException('Bad Request', common_1.HttpStatus.BAD_REQUEST);
+            throw new createFailed_exception_1.CreateFailedHttpException('Parece que deu algo de errado pra criar seu personagem :( ');
         }
     }
     async findAll() {
@@ -44,6 +44,17 @@ let PersonagemController = class PersonagemController {
         }
         catch (error) {
             throw new common_1.HttpException('Personagem not found', common_1.HttpStatus.NOT_FOUND);
+        }
+    }
+    async update(id, updatePersonagemDto) {
+        try {
+            return await this.personagensService.update(id, updatePersonagemDto);
+        }
+        catch (error) {
+            if (error.name === 'NotFoundException') {
+                throw new common_1.HttpException('Personagem not found', common_1.HttpStatus.NOT_FOUND);
+            }
+            throw new common_1.HttpException('Bad Request', common_1.HttpStatus.BAD_REQUEST);
         }
     }
     async remove(id) {
@@ -64,14 +75,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PersonagemController.prototype, "create", null);
 __decorate([
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], PersonagemController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
@@ -79,7 +88,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PersonagemController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.Patch)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_personagem_dto_1.UpdatePersonagemDto]),
+    __metadata("design:returntype", Promise)
+], PersonagemController.prototype, "update", null);
+__decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),

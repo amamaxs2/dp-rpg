@@ -23,8 +23,8 @@ export class AppModule {
     consumer
       .apply(LoggerMiddleware)
       .forRoutes('books');
-    consumer
-      .apply(PersonagemMiddleware)
-      .forRoutes({ path: 'personagem', method: RequestMethod.POST });
+    // consumer
+    //   .apply(PersonagemMiddleware)
+    //   .forRoutes({ path: 'personagem', method: RequestMethod.POST });
   }
 }

@@ -1,25 +1,26 @@
-import { Controller, Get, Post, Body, Param, Delete, HttpException, HttpStatus, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, HttpException, HttpStatus, UseGuards, Patch } from '@nestjs/common';
 import { PersonagemService } from './personagem.service';
 import { CreatePersonagemDto } from './dto/create-personagem.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { UpdatePersonagemDto } from './dto/update-personagem.dto';
+import { CreateFailedHttpException } from './exceptions/createFailed.exception';
 //import { UpdatePersonagemDto } from './dto/update-personagem.dto';
 
 @Controller('personagem')
 export class PersonagemController {
   constructor(private readonly personagensService: PersonagemService) { }
 
-  // @UseGuards(AuthGuard)
+  //@UseGuards(AuthGuard)
   @Post()
   async create(@Body() createPersonagemDto: CreatePersonagemDto) {
     try {
       return await this.personagensService.create(createPersonagemDto);
     } catch (error) {
-      console.log(error)
-      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+      throw new CreateFailedHttpException('Parece que deu algo de errado pra criar seu personagem :( ');
     }
   }
 
-  @UseGuards(AuthGuard)
+  //@UseGuards(AuthGuard)
   @Get()
   async findAll() {
     try {
@@ -29,7 +30,7 @@ export class PersonagemController {
     }
   }
 
-  @UseGuards(AuthGuard)
+  //@UseGuards(AuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
@@ -39,12 +40,20 @@ export class PersonagemController {
     }
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updatePersonagemDto: UpdatePersonagemDto) {
-  //   return this.personagensService.update(id, updatePersonagemDto);
-  // }
+  //@UseGuards(AuthGuard)
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() updatePersonagemDto: UpdatePersonagemDto) {
+    try {
+      return await this.personagensService.update(id, updatePersonagemDto);
+    } catch (error) {
+      if (error.name === 'NotFoundException') {
+        throw new HttpException('Personagem not found', HttpStatus.NOT_FOUND);
+      }
+      throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+    }
+  }
 
-  @UseGuards(AuthGuard)
+  //@UseGuards(AuthGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {
