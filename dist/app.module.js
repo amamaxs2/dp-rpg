@@ -8,9 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
-const books_module_1 = require("./books/books.module");
+const personagem_module_1 = require("./personagens/personagem.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const logger_middleware_1 = require("./common/middleware/logger.middleware");
+const auth_module_1 = require("./auth/auth.module");
+const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
@@ -22,8 +24,10 @@ exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb://0.0.0.0/books-nest'),
-            books_module_1.BooksModule,
+            mongoose_1.MongooseModule.forRoot('mongodb://0.0.0.0/dp-rpg'),
+            personagem_module_1.PersonagemModule,
+            auth_module_1.AuthModule,
+            users_module_1.UsersModule,
         ],
         controllers: [],
         providers: [],

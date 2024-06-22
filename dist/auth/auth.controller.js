@@ -12,33 +12,28 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BooksService = void 0;
+exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
-const book_schema_1 = require("./schemas/book.schema");
-const mongoose_1 = require("@nestjs/mongoose");
-const mongoose_2 = require("mongoose");
-let BooksService = class BooksService {
-    constructor(bookModel) {
-        this.bookModel = bookModel;
+const auth_service_1 = require("./auth.service");
+let AuthController = class AuthController {
+    constructor(authService) {
+        this.authService = authService;
     }
-    create(createBookDto) {
-        const createdBook = this.bookModel.create(createBookDto);
-        return createdBook;
-    }
-    findAll() {
-        return this.bookModel.find();
-    }
-    findById(id) {
-        return this.bookModel.findById(id);
-    }
-    remove(id) {
-        return this.bookModel.findByIdAndDelete(id);
+    signIn(signInDto) {
+        return this.authService.signIn(signInDto.username, signInDto.password);
     }
 };
-exports.BooksService = BooksService;
-exports.BooksService = BooksService = __decorate([
-    (0, common_1.Injectable)(),
-    __param(0, (0, mongoose_1.InjectModel)(book_schema_1.Book.name)),
-    __metadata("design:paramtypes", [mongoose_2.Model])
-], BooksService);
-//# sourceMappingURL=books.service.js.map
+exports.AuthController = AuthController;
+__decorate([
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.Post)('login'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "signIn", null);
+exports.AuthController = AuthController = __decorate([
+    (0, common_1.Controller)('auth'),
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
+], AuthController);
+//# sourceMappingURL=auth.controller.js.map

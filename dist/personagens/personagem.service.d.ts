@@ -22,16 +22,16 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { HydratedDocument } from 'mongoose';
-export type BookDocument = HydratedDocument<Book>;
-export declare class Book {
-    name: string;
-    price: number;
-    author: string;
-    ISBN: string;
+import { CreatePersonagemDto } from './dto/create-personagem.dto';
+import { Personagem } from './schemas/personagem.schema';
+import { Model } from 'mongoose';
+import { UpdatePersonagemDto } from './dto/update-personagem.dto';
+export declare class PersonagemService {
+    private personagemModel;
+    constructor(personagemModel: Model<Personagem>);
+    create(createPersonagemDto: CreatePersonagemDto): Promise<Personagem>;
+    findAll(): Promise<Personagem[]>;
+    findById(id: string): Promise<Personagem>;
+    update(id: string, updatePersonagemDto: UpdatePersonagemDto): Promise<Personagem>;
+    remove(id: string): Promise<Personagem>;
 }
-export declare const BookSchema: import("mongoose").Schema<Book, import("mongoose").Model<Book, any, any, any, import("mongoose").Document<unknown, any, Book> & Book & {
-    _id: import("mongoose").Types.ObjectId;
-}, any>, {}, {}, {}, {}, import("mongoose").DefaultSchemaOptions, Book, import("mongoose").Document<unknown, {}, import("mongoose").FlatRecord<Book>> & import("mongoose").FlatRecord<Book> & {
-    _id: import("mongoose").Types.ObjectId;
-}>;
