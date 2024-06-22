@@ -11,4 +11,4 @@ import { Personagem, PersonagemSchema } from './schemas/personagem.schema';
   controllers: [PersonagemController],
   providers: [PersonagemService],
 })
-export class PersonagemModule {}
+export class PersonagemModule { }

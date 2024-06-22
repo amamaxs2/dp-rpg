@@ -17,7 +17,8 @@ class FeatDto {
 
   @IsArray()
   @IsOptional()
-  prerequisites: string[];
+  @IsObject({ each: true })
+  prerequisites: object[];
 }
 
 class AlignmentDto {
@@ -40,6 +41,24 @@ class ItemDto {
   description: string;
 }
 
+class SpellDto {
+  @IsString()
+  @IsNotEmpty()
+  index: string;
+
+  @IsString()
+  @IsNotEmpty()
+  name: string;
+
+  @IsInt()
+  @IsNotEmpty()
+  level: number;
+
+  @IsString()
+  @IsNotEmpty()
+  url: string;
+}
+
 export class CreatePersonagemDto {
   @IsString()
   @MinLength(3)
@@ -58,10 +77,12 @@ export class CreatePersonagemDto {
 
   @IsArray()
   @IsOptional()
-  spells: string[];
+  @IsObject({ each: true })
+  spells: SpellDto[];
 
   @IsArray()
   @IsOptional()
+  @IsObject({ each: true })
   feats: FeatDto[];
 
   @IsObject()
@@ -70,9 +91,11 @@ export class CreatePersonagemDto {
 
   @IsArray()
   @IsOptional()
+  @IsString({ each: true })
   abilities: string[];
 
   @IsArray()
   @IsOptional()
-  items: ItemDto[];
+  @IsObject({ each: true })
+  equipment: ItemDto[];
 }
