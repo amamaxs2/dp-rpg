@@ -8,12 +8,13 @@ import { AuthGuard } from 'src/auth/auth.guard';
 export class PersonagemController {
   constructor(private readonly personagensService: PersonagemService) { }
 
-  @UseGuards(AuthGuard)
+  // @UseGuards(AuthGuard)
   @Post()
   async create(@Body() createPersonagemDto: CreatePersonagemDto) {
     try {
       return await this.personagensService.create(createPersonagemDto);
     } catch (error) {
+      console.log(error)
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     }
   }

@@ -1,84 +1,61 @@
 {
     "name": "Bussola",
     "level": 1,
-    "classes": {"name": "Barbarian",
-                "url": "/api/classes/barbarian"
+    "classes": {
+        "name": "Barbarian",
+        "url": "/api/classes/barbarian"
     },
     "spells": [
         {
             "index": "acid-splash",
-			"name": "Acid Splash",
+            "name": "Acid Splash",
             "level": 0,
-			"url": "/api/spells/acid-splash"
+            "url": "/api/spells/acid-splash"
         },
         {
-			"index": "chill-touch",
-			"name": "Chill Touch",
-			"level": 0,
-			"url": "/api/spells/chill-touch"
-		}
+            "index": "chill-touch",
+            "name": "Chill Touch",
+            "level": 0,
+            "url": "/api/spells/chill-touch"
+        }
     ],
     "equipment": [
         {
-			"index": "abacus",
-			"name": "Abacus",
-			"url": "/api/equipment/abacus"
-		},
-		{
-			"index": "acid-vial",
-			"name": "Acid (vial)",
-			"url": "/api/equipment/acid-vial"
-		}
+            "name": "Abacus",
+            "description": "A counting tool",
+            "url": "/api/items/abacus"
+        },
+        {
+            "name": "Acid (vial)",
+            "description": "A vial of acid",
+            "url": "/api/items/acid-vial"
+        }
     ],
-    "feats": {
-        "index": "grappler",
-        "name": "Grappler",
-        "url": "/api/feats/grappler",
-        "prerequisites": [
-            {
-              "ability_score": {
-                "index": "str",
-                "name": "STR",
-                "url": "/api/ability-scores/str"
-              },
-              "minimum_score": 13
-            }
-        ]
-    },
+    "feats": [
+        {
+            "name": "Grappler",
+            "prerequisites": [
+                {
+                    "ability_score": {
+                        "index": "str",
+                        "name": "STR",
+                        "url": "/api/ability-scores/str"
+                    },
+                    "minimum_score": 13
+                }
+            ]
+        }
+    ],
     "alignment": {
         "name": "Neutral",
         "url": "/api/alignments/neutral"
     },
     "abilities": [
-        {
-            "index": "cha",
-            "name": "CHA",
-            "url": "/api/ability-scores/cha"
-        },
-        {
-            "index": "con",
-            "name": "CON",
-            "url": "/api/ability-scores/con"
-        },
-        {
-            "index": "dex",
-            "name": "DEX",
-            "url": "/api/ability-scores/dex"
-        },
-        {
-            "index": "int",
-             "name": "INT",
-            "url": "/api/ability-scores/int"
-        },
-        {
-            "index": "str",
-            "name": "STR",
-            "url": "/api/ability-scores/str"
-        },
-        {
-            "index": "wis",
-            "name": "Wis",
-            "url": "/api/ability-scores/wis"
-        }
+        "CHA",
+        "CON",
+        "DEX",
+        "INT",
+        "STR",
+        "WIS"
     ]
 }

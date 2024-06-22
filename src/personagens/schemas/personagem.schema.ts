@@ -1,56 +1,78 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
+import { HydratedDocument, Types } from 'mongoose';
 
 export type PersonagemDocument = HydratedDocument<Personagem>;
 
 class Classe {
-  @Prop()
+  @Prop({ required: true })
   name: string;
 
-  @Prop()
+  @Prop({ required: true })
   url: string;
 }
 
 class Feat {
-  @Prop()
+  @Prop({ required: true })
   name: string;
 
-  @Prop({ type: [String] })
+  @Prop({ type: [String], default: [] })
   prerequisites: string[];
 }
 
 class Alignment {
-  @Prop()
+  @Prop({ required: true })
+  name: string;
+
+  @Prop({ required: true })
+  url: string;
+}
+
+class Item {
+  @Prop({ required: true })
   name: string;
 
   @Prop()
+  description: string;
+}
+
+class Spell {
+  @Prop({ required: true })
+  index: string;
+
+  @Prop({ required: true })
+  name: string;
+
+  @Prop({ required: true })
+  level: number;
+
+  @Prop({ required: true })
   url: string;
 }
 
 @Schema()
 export class Personagem {
-  @Prop()
+  @Prop({ required: true })
   name: string;
 
-  @Prop()
+  @Prop({ required: true })
   level: number;
 
-  @Prop({ type: Classe })
+  @Prop({ type: Classe, required: true })
   classes: Classe;
 
-  @Prop({ type: [String] })
-  spells: string[];
+  @Prop({ type: [Spell], default: [] })
+  spells: Spell[];
 
-  @Prop()
-  equipment: string;
+  @Prop({ type: [Item], default: [] })
+  equipment: Item[];
 
-  @Prop({ type: Feat })
-  feats: Feat;
+  @Prop({ type: [Feat], default: [] })
+  feats: Feat[];
 
-  @Prop({ type: Alignment })
+  @Prop({ type: Alignment, required: true })
   alignment: Alignment;
 
-  @Prop({ type: [String] })
+  @Prop({ type: [String], default: [] })
   abilities: string[];
 }
 
