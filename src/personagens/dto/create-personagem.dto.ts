@@ -1,4 +1,4 @@
-import { IsString, IsArray, IsObject, IsOptional, IsNotEmpty, MinLength, MaxLength } from 'class-validator';
+import { IsString, IsArray, IsObject, IsOptional, IsNotEmpty, MinLength, MaxLength, IsInt, Max, Min } from 'class-validator';
 
 class ClassDto {
   @IsString()
@@ -45,6 +45,12 @@ export class CreatePersonagemDto {
   @MinLength(3)
   @MaxLength(40)
   name: string;
+
+  @IsInt()
+  @IsNotEmpty()
+  @Min(1)
+  @Max(20)
+  level: number;
 
   @IsObject()
   @IsNotEmpty()

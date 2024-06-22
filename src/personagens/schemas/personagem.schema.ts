@@ -3,29 +3,55 @@ import { HydratedDocument } from 'mongoose';
 
 export type PersonagemDocument = HydratedDocument<Personagem>;
 
+class Classe {
+  @Prop()
+  name: string;
+
+  @Prop()
+  url: string;
+}
+
+class Feat {
+  @Prop()
+  name: string;
+
+  @Prop({ type: [String] })
+  prerequisites: string[];
+}
+
+class Alignment {
+  @Prop()
+  name: string;
+
+  @Prop()
+  url: string;
+}
+
 @Schema()
 export class Personagem {
   @Prop()
   name: string;
 
   @Prop()
-  classes: {name: String, url: String};
+  level: number;
 
-  @Prop()
-  spells: [];
+  @Prop({ type: Classe })
+  classes: Classe;
+
+  @Prop({ type: [String] })
+  spells: string[];
 
   @Prop()
   equipment: string;
-  
-  @Prop()
-  feats: {name: String, prerequisites: []};
-  
-  @Prop()
-  alignment: {name: String, url: String};
 
-  @Prop()
-  abilities: [];
+  @Prop({ type: Feat })
+  feats: Feat;
 
+  @Prop({ type: Alignment })
+  alignment: Alignment;
+
+  @Prop({ type: [String] })
+  abilities: string[];
 }
 
 export const PersonagemSchema = SchemaFactory.createForClass(Personagem);

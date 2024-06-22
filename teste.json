@@ -1,5 +1,6 @@
 {
     "name": "Bussola",
+    "level": 1,
     "classes": {"name": "Barbarian",
                 "url": "/api/classes/barbarian"
     },
