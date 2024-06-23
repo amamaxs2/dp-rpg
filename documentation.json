@@ -1,0 +1,258 @@
+{
+    "openapi": "3.0.0",
+    "paths": {
+        "/personagem": {
+            "post": {
+                "operationId": "PersonagemController_create",
+                "summary": "Create a new personagem",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreatePersonagemDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "The personagem has been successfully created."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    }
+                },
+                "tags": [
+                    "personagem"
+                ],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "get": {
+                "operationId": "PersonagemController_findAll",
+                "summary": "Get all personagens",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Return all personagens."
+                    },
+                    "403": {
+                        "description": "Forbidden."
+                    }
+                },
+                "tags": [
+                    "personagem"
+                ],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/personagem/{id}": {
+            "get": {
+                "operationId": "PersonagemController_findOne",
+                "summary": "Get a personagem by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return the personagem."
+                    },
+                    "404": {
+                        "description": "Personagem not found."
+                    }
+                },
+                "tags": [
+                    "personagem"
+                ],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "patch": {
+                "operationId": "PersonagemController_update",
+                "summary": "Update a personagem by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdatePersonagemDto"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "The personagem has been successfully updated."
+                    },
+                    "404": {
+                        "description": "Personagem not found."
+                    }
+                },
+                "tags": [
+                    "personagem"
+                ],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "operationId": "PersonagemController_remove",
+                "summary": "Delete a personagem by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The personagem has been successfully deleted."
+                    },
+                    "404": {
+                        "description": "Personagem not found."
+                    }
+                },
+                "tags": [
+                    "personagem"
+                ],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/personagem/random/{level}": {
+            "get": {
+                "operationId": "PersonagemController_getRandomCharacter",
+                "summary": "Get a random personagem by level",
+                "parameters": [
+                    {
+                        "name": "level",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Return the random personagem."
+                    },
+                    "500": {
+                        "description": "Error creating random character."
+                    }
+                },
+                "tags": [
+                    "personagem"
+                ],
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "operationId": "AuthController_login",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/auth/profile": {
+            "post": {
+                "operationId": "AuthController_getProfile",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "operationId": "AuthController_register",
+                "parameters": [],
+                "responses": {
+                    "201": {
+                        "description": ""
+                    }
+                }
+            }
+        }
+    },
+    "info": {
+        "title": "DP RPG API",
+        "description": "API documentation for DP RPG application",
+        "version": "1.0",
+        "contact": {}
+    },
+    "tags": [
+        {
+            "name": "personagem",
+            "description": ""
+        }
+    ],
+    "servers": [],
+    "components": {
+        "securitySchemes": {
+            "bearer": {
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "type": "http"
+            }
+        },
+        "schemas": {
+            "CreatePersonagemDto": {
+                "type": "object",
+                "properties": {}
+            },
+            "UpdatePersonagemDto": {
+                "type": "object",
+                "properties": {}
+            }
+        }
+    }
+}

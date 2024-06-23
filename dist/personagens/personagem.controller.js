@@ -19,6 +19,7 @@ const create_personagem_dto_1 = require("./dto/create-personagem.dto");
 const update_personagem_dto_1 = require("./dto/update-personagem.dto");
 const createFailed_exception_1 = require("./exceptions/createFailed.exception");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
+const swagger_1 = require("@nestjs/swagger");
 let PersonagemController = class PersonagemController {
     constructor(personagensService) {
         this.personagensService = personagensService;
@@ -79,6 +80,9 @@ exports.PersonagemController = PersonagemController;
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Create a new personagem' }),
+    (0, swagger_1.ApiResponse)({ status: 201, description: 'The personagem has been successfully created.' }),
+    (0, swagger_1.ApiResponse)({ status: 403, description: 'Forbidden.' }),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_personagem_dto_1.CreatePersonagemDto]),
@@ -87,6 +91,9 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Get all personagens' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Return all personagens.' }),
+    (0, swagger_1.ApiResponse)({ status: 403, description: 'Forbidden.' }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
@@ -94,6 +101,9 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Get a personagem by id' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Return the personagem.' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Personagem not found.' }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -102,6 +112,9 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Patch)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Update a personagem by id' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'The personagem has been successfully updated.' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Personagem not found.' }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -111,6 +124,9 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Delete)(':id'),
+    (0, swagger_1.ApiOperation)({ summary: 'Delete a personagem by id' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'The personagem has been successfully deleted.' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Personagem not found.' }),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -119,12 +135,17 @@ __decorate([
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Get)('random/:level'),
+    (0, swagger_1.ApiOperation)({ summary: 'Get a random personagem by level' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'Return the random personagem.' }),
+    (0, swagger_1.ApiResponse)({ status: 500, description: 'Error creating random character.' }),
     __param(0, (0, common_1.Param)('level')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], PersonagemController.prototype, "getRandomCharacter", null);
 exports.PersonagemController = PersonagemController = __decorate([
+    (0, swagger_1.ApiBearerAuth)(),
+    (0, swagger_1.ApiTags)('personagem'),
     (0, common_1.Controller)('personagem'),
     __metadata("design:paramtypes", [personagem_service_1.PersonagemService])
 ], PersonagemController);
