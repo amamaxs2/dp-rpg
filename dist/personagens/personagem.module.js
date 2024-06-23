@@ -12,6 +12,7 @@ const personagem_service_1 = require("./personagem.service");
 const personagem_controller_1 = require("./personagem.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const personagem_schema_1 = require("./schemas/personagem.schema");
+const axios_1 = require("@nestjs/axios");
 let PersonagemModule = class PersonagemModule {
 };
 exports.PersonagemModule = PersonagemModule;
@@ -19,6 +20,7 @@ exports.PersonagemModule = PersonagemModule = __decorate([
     (0, common_1.Module)({
         imports: [
             mongoose_1.MongooseModule.forFeature([{ name: personagem_schema_1.Personagem.name, schema: personagem_schema_1.PersonagemSchema }]),
+            axios_1.HttpModule
         ],
         controllers: [personagem_controller_1.PersonagemController],
         providers: [personagem_service_1.PersonagemService],

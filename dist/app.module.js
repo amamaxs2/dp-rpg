@@ -12,24 +12,35 @@ const axios_1 = require("@nestjs/axios");
 const mongoose_1 = require("@nestjs/mongoose");
 const personagem_module_1 = require("./personagens/personagem.module");
 const logger_middleware_1 = require("./common/middleware/logger.middleware");
+const personagem_middleware_1 = require("./personagens/middleware/personagem.middleware");
 const auth_module_1 = require("./auth/auth.module");
-const users_module_1 = require("./users/users.module");
+const user_module_1 = require("./users/user.module");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer
             .apply(logger_middleware_1.LoggerMiddleware)
             .forRoutes('books');
+        consumer
+            .apply(personagem_middleware_1.PersonagemMiddleware)
+            .forRoutes({ path: 'personagem', method: common_1.RequestMethod.POST });
+        consumer
+            .apply(personagem_middleware_1.PersonagemMiddleware)
+            .forRoutes({ path: 'personagem', method: common_1.RequestMethod.PATCH });
     }
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+            }),
             axios_1.HttpModule,
             mongoose_1.MongooseModule.forRoot('mongodb://0.0.0.0/dp-rpg'),
             personagem_module_1.PersonagemModule,
             auth_module_1.AuthModule,
-            users_module_1.UsersModule,
+            user_module_1.UserModule,
         ],
         controllers: [],
         providers: [],
