@@ -1,16 +1,15 @@
 import { Controller, Get, Post, Body, Param, Delete, HttpException, HttpStatus, UseGuards, Patch } from '@nestjs/common';
 import { PersonagemService } from './personagem.service';
 import { CreatePersonagemDto } from './dto/create-personagem.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
 import { UpdatePersonagemDto } from './dto/update-personagem.dto';
 import { CreateFailedHttpException } from './exceptions/createFailed.exception';
-//import { UpdatePersonagemDto } from './dto/update-personagem.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('personagem')
 export class PersonagemController {
   constructor(private readonly personagensService: PersonagemService) { }
 
-  //@UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(@Body() createPersonagemDto: CreatePersonagemDto) {
     try {
@@ -20,7 +19,7 @@ export class PersonagemController {
     }
   }
 
-  //@UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get()
   async findAll() {
     try {
@@ -30,7 +29,7 @@ export class PersonagemController {
     }
   }
 
-  //@UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
@@ -40,7 +39,7 @@ export class PersonagemController {
     }
   }
 
-  //@UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updatePersonagemDto: UpdatePersonagemDto) {
     try {
@@ -53,13 +52,23 @@ export class PersonagemController {
     }
   }
 
-  //@UseGuards(AuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async remove(@Param('id') id: string) {
     try {
       return await this.personagensService.remove(id);
     } catch (error) {
       throw new HttpException('Personagem not found', HttpStatus.NOT_FOUND);
+    }
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('random/:level')
+  async getRandomCharacter(@Param('level') level: number) {
+    try {
+      return await this.personagensService.createRandomCharacter(level);
+    } catch (error) {
+      throw new HttpException('Error creating random character', HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 }

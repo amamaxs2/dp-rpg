@@ -9,4 +9,5 @@ export declare class PersonagemController {
     findOne(id: string): Promise<import("./schemas/personagem.schema").Personagem>;
     update(id: string, updatePersonagemDto: UpdatePersonagemDto): Promise<import("./schemas/personagem.schema").Personagem>;
     remove(id: string): Promise<import("./schemas/personagem.schema").Personagem>;
+    getRandomCharacter(level: number): Promise<import("./schemas/personagem.schema").Personagem>;
 }

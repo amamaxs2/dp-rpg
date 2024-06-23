@@ -23,15 +23,26 @@
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
 import { CreatePersonagemDto } from './dto/create-personagem.dto';
+import { UpdatePersonagemDto } from './dto/update-personagem.dto';
 import { Personagem } from './schemas/personagem.schema';
 import { Model } from 'mongoose';
-import { UpdatePersonagemDto } from './dto/update-personagem.dto';
+import { HttpService } from '@nestjs/axios';
 export declare class PersonagemService {
     private personagemModel;
-    constructor(personagemModel: Model<Personagem>);
+    private readonly httpService;
+    private readonly apiUrl;
+    constructor(personagemModel: Model<Personagem>, httpService: HttpService);
     create(createPersonagemDto: CreatePersonagemDto): Promise<Personagem>;
     findAll(): Promise<Personagem[]>;
     findById(id: string): Promise<Personagem>;
     update(id: string, updatePersonagemDto: UpdatePersonagemDto): Promise<Personagem>;
     remove(id: string): Promise<Personagem>;
+    createRandomCharacter(level: number): Promise<Personagem>;
+    private getRandomClass;
+    private getRandomSpells;
+    private getRandomEquipment;
+    private getRandomAlignment;
+    private getRandomFeats;
+    private getRandomAbilities;
+    private getRandomItems;
 }
